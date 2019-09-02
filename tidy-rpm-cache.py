@@ -1,11 +1,8 @@
 #!/usr/bin/python3 -s
 # -*- coding: utf-8 -*-
-#
-# $Id: tidy-rpm-cache.py 1225 2009-12-01 12:31:18Z darwin $
-#
 
 """ Deletes obsolete RPM package files from a directory.
-
+Based on tidy-rpm-cache.py rev 1225.
 
 Copyright:
 
