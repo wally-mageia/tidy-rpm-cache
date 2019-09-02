@@ -167,11 +167,11 @@ The following outlines the basic control flow in this script.
         | exit
 """
 
-__author__          = "Darwin Slattery (info [AT] hyperdrifter.com)"
-__date__            = "01/07/2008"
-__copyright__       = "2008-2009 Darwin Slattery"
+__author__          = "Jani Välimaa (wally [AT] mageia.org)"
+__date__            = "02/09/2019"
+__copyright__       = "2008-2009 Darwin Slattery, 2019 Jani Välimaa"
 __license__         = "GPLv3"
-__version__         = "$Revision: 1225 $".split( ' ' )[ 1 ]
+__version__         = "Version: 1500".split( ' ' )[ 1 ]
 
 
 import sys
