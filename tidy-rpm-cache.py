@@ -768,7 +768,7 @@ def display_pkg_info( rpm_data, action ):
     # Left justify text columns.
     if len( version_string ) < widths[ 0 ]:
         version_string += ' ' * ( widths[ 0 ] - len( version_string ) )
-    elif version_string > widths[ 0 ]:
+    elif len( version_string ) > widths[ 0 ]:
         # Note: we have to indent 7 on new lines for the log prefix text.
         version_string += "\n" + " " * ( widths[ 0 ] + 4 + 7 )
     if len( build_date ) < widths[ 1 ]:
