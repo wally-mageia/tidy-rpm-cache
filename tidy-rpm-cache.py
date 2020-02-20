@@ -678,9 +678,9 @@ def delete_obsolete_rpms( run_data, force_del ):
         while user_choice.lower() != 'y' and \
                 user_choice.lower() != 'n':
             try:
-                user_choice = eval(input( "\n[INFO] Are you sure you want to" + \
+                user_choice = input( "\n[INFO] Are you sure you want to" + \
                                             " permanently delete these" + \
-                                            " files y/n? " ))
+                                            " files y/n? " )
             except KeyboardInterrupt as e:
                 return
 
