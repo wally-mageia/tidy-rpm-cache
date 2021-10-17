@@ -176,7 +176,7 @@ __version__         = "Version: 1500".split( ' ' )[ 1 ]
 
 import sys
 import os
-from os.path import join, basename
+from os.path import basename
 import logging
 import getopt
 import traceback
