@@ -202,12 +202,6 @@ class RpmData:
     size -- The size of the RPM file.
     """
 
-    def __init__( self ):
-        """ Constructor for RpmData instances. """
-        self.header = None
-        self.path = ""
-        self.size = -1
-
     def __init__( self
                   , header
                   , path ):
