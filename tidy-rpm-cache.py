@@ -584,7 +584,7 @@ def find_obsolete_rpms( rpm_paths
             run_data.file_errors.append(
                 "Unable to read RPM file: '" + path + "'\nReason: " + str( e ) )
 
-        if rpm_hdr == None:
+        if rpm_hdr is None:
             continue
 
         # If the current RPM package name differs to the previous one, then we
@@ -965,7 +965,7 @@ def main( argV ):
     try:
         tidy_rpm_cache( argV )
     except Exception as e:
-        if g_logger == None:
+        if g_logger is None:
             logging.basicConfig()
             g_logger = logging.getLogger()
 
