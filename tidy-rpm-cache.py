@@ -181,10 +181,9 @@ import logging
 import getopt
 import traceback
 from time import gmtime, strftime
-import rpm
 import re
 from functools import cmp_to_key
-
+import rpm
 
 # The global information, warning, and error message target.
 g_logger            = None
