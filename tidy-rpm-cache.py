@@ -389,7 +389,7 @@ def tidy_rpm_cache( argV ):
             try:
                 num_obsolete = int( arg )
             except ( ValueError ):
-                g_logger.error( "Invalid num-obsoletes value '" + arg + "'" )
+                g_logger.error( "Invalid num-obsoletes value '%s'", arg )
                 display_usage()
                 sys.exit( 1 )
 
@@ -447,8 +447,7 @@ def tidy_rpm_cache( argV ):
             pattern = re.compile( reg_ex )
             reg_ex_objects.append( pattern )
         except re.error as e:
-            g_logger.warning( "The expression '%s' could not be compiled: %s"
-                % ( reg_ex, str( e ) ) )
+            g_logger.warning( "The expression '%s' could not be compiled: %s", reg_ex, str( e ) )
 
     # Generate a list of all RPM paths in the search directories.
     rpm_paths = find_rpms( search_dir_paths
@@ -456,7 +455,7 @@ def tidy_rpm_cache( argV ):
                            , srpm_mode )
     run_data.total_found = len( rpm_paths )
     if run_data.total_found > 0:
-        g_logger.debug( "Found %d RPM files." % ( run_data.total_found ) )
+        g_logger.debug( "Found %d RPM files.", run_data.total_found )
     else:
         g_logger.info( "No RPM files were found." )
         return
@@ -479,7 +478,7 @@ def tidy_rpm_cache( argV ):
                         , num_obsolete )
 
     if not ignore_file_errors and len( run_data.file_errors ) > 0:
-        g_logger.warn( "%d file errors occurred. These are listed below." %
+        g_logger.warn( "%d file errors occurred. These are listed below.",
                         len( run_data.file_errors ) )
         for file_error in run_data.file_errors:
             g_logger.warn( file_error )
@@ -508,7 +507,7 @@ def find_rpms( search_dir_paths
     results = list()
 
     for dir_path in search_dir_paths:
-        g_logger.debug( "Searching directory '" + dir_path + "'" )
+        g_logger.debug( "Searching directory '%s'", dir_path )
         for root, dirs, files in os.walk( dir_path ):
             for file_name in files:
                 if not os.path.isfile( os.path.join(root, file_name ) ):
@@ -532,10 +531,10 @@ def find_rpms( search_dir_paths
                         is_excluded = True
                         break
                 if is_excluded:
-                    g_logger.debug( "Excluding " + file_name )
+                    g_logger.debug( "Excluding '%s'", file_name )
                     continue
 
-                g_logger.debug( "Found '" + file_name + "'" )
+                g_logger.debug( "Found '%s'", file_name )
                 results.append( os.path.join(root, file_name ) )
 
     return results
@@ -592,7 +591,7 @@ def find_obsolete_rpms( rpm_paths
             if len( rpm_data_list ) > 0:
                 process_rpm_group( rpm_data_list, run_data, num_obsolete )
             elif last_package_tag != '':
-                g_logger.debug( "Package '%s': %d total, 0 obsolete" % \
+                g_logger.debug( "Package '%s': %d total, 0 obsolete",
                     ( last_package_tag, list_length ) )
 
             # Delete all the data about the old package since we will not need
@@ -610,8 +609,8 @@ def find_obsolete_rpms( rpm_paths
     if len( rpm_data_list ) > 0:
         process_rpm_group( rpm_data_list, run_data, num_obsolete )
     elif last_package_tag != '':
-        g_logger.debug( "Package '%s': %d total, 0 obsolete" % \
-                      ( last_package_tag, list_length ) )
+        g_logger.debug( "Package '%s': %d total, 0 obsolete",
+                        last_package_tag, list_length )
 
 
 def process_rpm_group( rpm_data_list, run_data, num_obsolete ):
@@ -623,10 +622,10 @@ def process_rpm_group( rpm_data_list, run_data, num_obsolete ):
         return
 
     package_name = rpm_data_list[ 0 ].header[ 'name' ]
-    g_logger.debug( "Package '%s': %d total, %d obsolete)" % \
-                    ( package_name
+    g_logger.debug( "Package '%s': %d total, %d obsolete)"
+                    , package_name
                     , list_length
-                    , list_length - ( num_obsolete + 1 ) ) )
+                    , list_length - ( num_obsolete + 1 ) )
 
     # Sort the list of packages by version descending.
     rpm_data_list.sort( key = cmp_to_key(cmp_RpmData_by_version) )
@@ -664,8 +663,8 @@ def delete_obsolete_rpms( run_data, force_del ):
 
     g_logger.info( "" )
     g_logger.info(
-        "Marked %d RPM files with a total size of %.2fM for deletion." \
-        % ( len( run_data.obs_paths ), run_data.total_obs_size / 1048576.0 ) )
+        "Marked %d RPM files with a total size of %.2fM for deletion.",
+        len( run_data.obs_paths ), run_data.total_obs_size / 1048576.0 )
     user_choice=''
     if not force_del:
         while user_choice.lower() != 'y' and \
@@ -681,11 +680,11 @@ def delete_obsolete_rpms( run_data, force_del ):
     if force_del or user_choice.lower() == 'y':
         g_logger.info( "Deleting RPM files..." )
         for file_path in run_data.obs_paths:
-            g_logger.debug( "Deleting path '" + file_path + "'" )
+            g_logger.debug( "Deleting path '%s'", file_path )
             try:
                 os.remove( file_path )
             except os.error as e:
-                g_logger.error( "Unable to delete RPM file. " + str( e ) )
+                g_logger.error( "Unable to delete RPM file. %s", str( e ) )
                 sys.exit( 1 )
 
 
@@ -705,8 +704,8 @@ def display_pkg_summary( rpm_data_list, num_obsolete ):
     if g_ignore_arch:
         g_logger.info( rpm_data_list[ 0 ].header[ 'name' ] )
     else:
-        g_logger.info( "%s (%s)" % ( rpm_data_list[ 0 ].header[ 'name' ]
-                                     , rpm_data_list[ 0 ].header[ 'arch' ] ) )
+        g_logger.info( "%s (%s)", rpm_data_list[ 0 ].header[ 'name' ]
+                                , rpm_data_list[ 0 ].header[ 'arch' ] )
 
     for rpm_data in rpm_data_list[ 0:( num_obsolete + 1 ) ]:
         display_pkg_info( rpm_data, "Keep" )
@@ -932,16 +931,16 @@ def display_version():
     """ Prints version information for this script. """
     global g_logger
 
-    g_logger.info( "tidy-rpm-cache.py rev%s, Copyright (C) %s" %
-                    ( __version__, __copyright__ ) )
+    g_logger.info( "tidy-rpm-cache.py rev%s, Copyright (C) %s",
+                    __version__, __copyright__ )
 
 def display_disclaimer():
     """ Prints a summary of the license. """
     global g_logger
 
     g_logger.info( "This program comes with ABSOLUTELY NO WARRANTY." )
-    g_logger.info( "This is free software, and you are welcome to" + \
-                 " redistribute it under certain conditions." )
+    g_logger.info( "This is free software, and you are welcome to" )
+    g_logger.info( "redistribute it under certain conditions." )
     g_logger.info( "For details type 'tidy-rpm-cache.py --help'." )
 
 
