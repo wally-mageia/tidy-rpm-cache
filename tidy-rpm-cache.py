@@ -590,7 +590,7 @@ def find_obsolete_rpms( rpm_paths
 
         if current_rpm_tag != last_package_tag and last_package_tag != '':
             if len( rpm_data_list ) > 0:
-                process_rpm_group( rpm_data_list, run_data, num_obsolete );
+                process_rpm_group( rpm_data_list, run_data, num_obsolete )
             elif last_package_tag != '':
                 g_logger.debug( "Package '%s': %d total, 0 obsolete" % \
                     ( last_package_tag, list_length ) )
@@ -608,7 +608,7 @@ def find_obsolete_rpms( rpm_paths
 
     # Process any remaining rpms in rpm_data_list.
     if len( rpm_data_list ) > 0:
-        process_rpm_group( rpm_data_list, run_data, num_obsolete );
+        process_rpm_group( rpm_data_list, run_data, num_obsolete )
     elif last_package_tag != '':
         g_logger.debug( "Package '%s': %d total, 0 obsolete" % \
                       ( last_package_tag, list_length ) )
@@ -620,7 +620,7 @@ def process_rpm_group( rpm_data_list, run_data, num_obsolete ):
 
     list_length = len( rpm_data_list )
     if list_length <= ( num_obsolete + 1 ):
-        return;
+        return
 
     package_name = rpm_data_list[ 0 ].header[ 'name' ]
     g_logger.debug( "Package '%s': %d total, %d obsolete)" % \
@@ -746,7 +746,7 @@ def display_pkg_info( rpm_data, action ):
                     str( widths[ 0 ] ) + "s " + \
                     "%" + str( widths[ 1 ] ) + "s " + \
                     "%" + str( widths[ 2 ] ) + ".2fM " + \
-                    " %" + str( widths[ 3 ] ) + "s";
+                    " %" + str( widths[ 3 ] ) + "s"
     version_string = '%s-%s' % ( rpm_data.header[ 'version' ]
                                  , rpm_data.header[ 'release' ] )
     if g_ignore_arch:
