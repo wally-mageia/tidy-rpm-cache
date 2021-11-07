@@ -388,7 +388,7 @@ def tidy_rpm_cache( argV ):
         if opt in ( '-n', '--num-obsolete' ):
             try:
                 num_obsolete = int( arg )
-            except ( ValueError ):
+            except ValueError:
                 g_logger.error( "Invalid num-obsoletes value '%s'", arg )
                 display_usage()
                 sys.exit( 1 )
@@ -740,7 +740,7 @@ def display_pkg_info( rpm_data, action ):
 
     max_width = 70
     widths = [ 34, 11, 7, 8 ]
-    assert( sum( widths ) < max_width )
+    assert sum( widths ) < max_width
     format_string = "    %" + \
                     str( widths[ 0 ] ) + "s " + \
                     "%" + str( widths[ 1 ] ) + "s " + \
